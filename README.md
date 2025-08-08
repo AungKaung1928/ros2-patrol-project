@@ -1,4 +1,4 @@
-# 🤖 TurtleBot3 Patrol Navigation
+# 🏎️ TurtleBot3 Patrol Navigation
 
 A simple autonomous patrol system for TurtleBot3 using ROS2 Humble and Navigation2 stack. This project demonstrates basic autonomous navigation concepts with waypoint-based patrolling in Gazebo simulation.
 
@@ -59,7 +59,7 @@ turtlebot3_patrol_ws/
 └── README.md
 ```
 
-## 🚀 Quick Start
+## 🌐 Quick Start
 
 ### 1. Create Workspace and Package Structure
 
@@ -230,7 +230,7 @@ Key parameters for robot behavior:
 5. **Motion Control**: Robot executes planned trajectory
 6. **Loop Continuation**: System cycles through waypoints indefinitely
 
-## 🐛 Troubleshooting
+## 🐞 Troubleshooting
 
 ### Common Issues
 
