@@ -128,26 +128,26 @@ source install/setup.bash
 
 ## 🎮 Running the System
 
-### Option 1: Manual Launch (3 Terminals)
+### Manual Launch (3 Terminals)
 
 **Terminal 1: Launch Gazebo World**
 ```bash
 export TURTLEBOT3_MODEL=waffle
-source ~/turtlebot3_patrol_ws/install/setup.bash
+source install/setup.bash
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
 
 **Terminal 2: Launch Navigation Stack**
 ```bash
 export TURTLEBOT3_MODEL=waffle
-source ~/turtlebot3_patrol_ws/install/setup.bash
+source install/setup.bash
 ros2 launch patrol_navigation_project patrol_navigation.launch.py
 ```
 
 **Terminal 3: Start Patrol**
 ```bash
 export TURTLEBOT3_MODEL=waffle
-source ~/turtlebot3_patrol_ws/install/setup.bash
+source install/setup.bash
 ros2 run patrol_navigation_project patrol_controller
 ```
 ## ⚙️ Configuration
