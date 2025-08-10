@@ -150,15 +150,6 @@ export TURTLEBOT3_MODEL=waffle
 source ~/turtlebot3_patrol_ws/install/setup.bash
 ros2 run patrol_navigation_project patrol_controller
 ```
-
-### Option 2: Complete Launch (1 Terminal)
-
-```bash
-export TURTLEBOT3_MODEL=waffle
-source ~/turtlebot3_patrol_ws/install/setup.bash
-ros2 launch patrol_navigation_project patrol_gazebo.launch.py
-```
-
 ## ⚙️ Configuration
 
 ### Patrol Points (`config/patrol_points.yaml`)
