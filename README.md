@@ -2,7 +2,7 @@
 
 A simple autonomous patrol system for TurtleBot3 using ROS2 Humble and Navigation2 stack. This project demonstrates basic autonomous navigation concepts with waypoint-based patrolling in Gazebo simulation.
 
-## 🛡️ Features
+## 🔰  Features
 
 - **Autonomous Patrol**: Robot follows predefined waypoints in a loop
 - **Navigation2 Integration**: Uses Nav2 stack for path planning and obstacle avoidance  
@@ -10,7 +10,7 @@ A simple autonomous patrol system for TurtleBot3 using ROS2 Humble and Navigatio
 - **RViz Visualization**: Real-time navigation visualization
 - **Simple Configuration**: Easy-to-modify YAML waypoint configuration
 
-## 💻 Prerequisites
+## 🔧 Prerequisites
 
 - **Ubuntu 22.04 LTS**
 - **ROS2 Humble** 
