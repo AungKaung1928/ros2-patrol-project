@@ -28,19 +28,26 @@ class PatrolController(Node):
         
         # Start patrol
         self.start_patrol()
-    
+        
     def create_pose_stamped(self, x, y, z=0.0, yaw=0.0):
-        """Create a PoseStamped message"""
+        """Create a PoseStamped message with proper yaw handling"""
         pose = PoseStamped()
+    
+        # Set reference frame and timestamp
         pose.header.frame_id = 'map'
         pose.header.stamp = self.navigator.get_clock().now().to_msg()
+    
+        # Set 3D position coordinates
         pose.pose.position.x = x
         pose.pose.position.y = y
         pose.pose.position.z = z
-        
-        # Convert yaw to quaternion (simplified for 2D)
-        pose.pose.orientation.z = 0.0
-        pose.pose.orientation.w = 1.0
+    
+        # Convert yaw to quaternion (FIXED VERSION)
+        # For 2D rotation around Z-axis: q = [0, 0, sin(yaw/2), cos(yaw/2)]
+        pose.pose.orientation.x = 0.0
+        pose.pose.orientation.y = 0.0
+        pose.pose.orientation.z = sin(yaw / 2.0)
+        pose.pose.orientation.w = cos(yaw / 2.0)
         
         return pose
     
