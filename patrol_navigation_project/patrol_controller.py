@@ -5,6 +5,7 @@ from geometry_msgs.msg import PoseStamped
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 import time
 from .waypoint_manager import WaypointManager
+from math import sin, cos
 
 class PatrolController(Node):
     def __init__(self):
