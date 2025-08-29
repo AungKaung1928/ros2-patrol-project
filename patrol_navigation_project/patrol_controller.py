@@ -27,7 +27,7 @@ class PatrolController(Node):
         self.navigator.waitUntilNav2Active()
         self.get_logger().info('Nav2 is ready!')
         
-        # Start patrol
+        # Starting patrol
         self.start_patrol()
         
     def create_pose_stamped(self, x, y, z=0.0, yaw=0.0):
