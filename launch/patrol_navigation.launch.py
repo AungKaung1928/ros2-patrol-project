@@ -53,7 +53,7 @@ def generate_launch_description():
         output='screen'
     )
     
-    # Patrol controller
+    # Robot Patrol controller
     patrol_node = Node(
         package='patrol_navigation_project',
         executable='patrol_controller',
