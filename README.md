@@ -1,11 +1,11 @@
 # ROS 2 Patrol Navigation Project 🗺️⚡
 
 <p align="center">
-  <img src="https://img.shields.io/badge/ROS2-Humble-blue?style=for-the-badge&logo=ros&logoColor=white" alt="ROS2 Humble">
-  <img src="https://img.shields.io/badge/Python-3.8+-yellow?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Gazebo-Simulation-green?style=for-the-badge&logo=gazebo&logoColor=white" alt="Gazebo">
-  <img src="https://img.shields.io/badge/RViz-Visualization-orange?style=for-the-badge&logo=rviz&logoColor=white" alt="RViz">
-  <img src="https://img.shields.io/badge/TurtleBot3-Compatible-purple?style=for-the-badge&logo=robotframework&logoColor=white" alt="TurtleBot3">
+  <a href="https://docs.ros.org/en/humble/index.html"><img src="https://img.shields.io/badge/ROS2-Humble-blue?style=for-the-badge&logo=ros&logoColor=white" alt="ROS2 Humble"></a>
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8+-yellow?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://gazebosim.org/docs"><img src="https://img.shields.io/badge/Gazebo-Simulation-green?style=for-the-badge&logo=gazebo&logoColor=white" alt="Gazebo"></a>
+  <a href="http://wiki.ros.org/rviz"><img src="https://img.shields.io/badge/RViz-Visualization-orange?style=for-the-badge&logo=rviz&logoColor=white" alt="RViz"></a>
+  <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/"><img src="https://img.shields.io/badge/TurtleBot3-Compatible-purple?style=for-the-badge&logo=robotframework&logoColor=white" alt="TurtleBot3"></a>
 </p>
 
 A comprehensive autonomous patrol robot system built with ROS2, designed for TurtleBot3 simulation. This project implements an intelligent navigation system that allows a robot to autonomously patrol between predefined waypoints using Nav2 stack.
@@ -21,13 +21,13 @@ A comprehensive autonomous patrol robot system built with ROS2, designed for Tur
 
 ## 📋 Prerequisites
 Before running this project, ensure you have the following installed:
-- **ROS2 Humble** (or later)
-- **TurtleBot3 packages**
-- **Nav2 navigation stack**
-- **Gazebo simulation environment**
-- **RViz visualization tool**
+- **[ROS2 Humble](https://docs.ros.org/en/humble/Installation.html)** (or later)
+- **[TurtleBot3 packages](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/)**
+- **[Nav2 navigation stack](https://navigation.ros.org/)**
+- **[Gazebo simulation environment](https://gazebosim.org/docs/garden/install)**
+- **[RViz visualization tool](http://wiki.ros.org/rviz)**
 
-### Required ROS2 Packages for project
+### Required ROS2 Packages
 ```bash
 sudo apt update
 sudo apt install ros-humble-desktop-full
@@ -36,6 +36,12 @@ sudo apt install ros-humble-navigation2
 sudo apt install ros-humble-nav2-bringup
 sudo apt install ros-humble-turtlebot3-simulations
 ```
+
+> 📖 **Documentation References:**
+> - [ROS2 Installation Guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+> - [TurtleBot3 Setup Guide](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/)
+> - [Nav2 Getting Started](https://navigation.ros.org/getting_started/index.html)
+> - [Gazebo Installation](https://gazebosim.org/docs/garden/install_ubuntu)
 
 ## 🚀 Quick Start
 ### 1. Clone and Build
@@ -127,12 +133,19 @@ patrol_points:
     z: 0.0
 ```
 
+> 📚 **Learn More:** [Nav2 Waypoint Following Tutorial](https://navigation.ros.org/tutorials/docs/navigation2_with_keepout_filter.html)
+
 ### Navigation Parameters
 The project includes optimized navigation parameters in `config/nav2_params.yaml`:
 - **High-Speed Movement**: `max_vel_x: 4.0`, `max_speed_xy: 4.0`
 - **Aggressive Acceleration**: `acc_lim_x: 12.0`, `acc_lim_theta: 15.0`
 - **Optimized Safety**: Balanced obstacle avoidance and speed
 - **Smart Path Planning**: Efficient trajectory generation
+
+> 🔧 **Parameter References:**
+> - [Nav2 Configuration Guide](https://navigation.ros.org/configuration/index.html)
+> - [DWB Controller Parameters](https://navigation.ros.org/configuration/packages/configuring-dwb-controller.html)
+> - [Behavior Tree Navigator](https://navigation.ros.org/configuration/packages/configuring-bt-navigator.html)
 
 ### Key Configuration Sections
 **Behavior Server Configuration:**
