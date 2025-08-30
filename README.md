@@ -27,7 +27,7 @@ Before running this project, ensure you have the following installed:
 - **Gazebo simulation environment**
 - **RViz visualization tool**
 
-### Required ROS2 Packages
+### Required ROS2 Packages for project
 ```bash
 sudo apt update
 sudo apt install ros-humble-desktop-full
