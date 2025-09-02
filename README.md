@@ -110,7 +110,7 @@ src/patrol_navigation_project/
     └── (test files)                       # Unit and integration tests
 ```
 
-## ⚙️ Configuration
+## 📱 Configuration
 ### Patrol Points Configuration
 Edit `config/patrol_points.yaml` to customize patrol waypoints:
 ```yaml
