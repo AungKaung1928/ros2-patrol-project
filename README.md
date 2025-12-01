@@ -1,16 +1,8 @@
-# ROS 2 Patrol Navigation Project 🗺️⚡
-
-<p align="center">
-  <a href="https://docs.ros.org/en/humble/index.html"><img src="https://img.shields.io/badge/ROS2-Humble-blue?style=for-the-badge&logo=ros&logoColor=white" alt="ROS2 Humble"></a>
-  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8+-yellow?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
-  <a href="https://gazebosim.org/docs"><img src="https://img.shields.io/badge/Gazebo-Simulation-green?style=for-the-badge&logo=gazebo&logoColor=white" alt="Gazebo"></a>
-  <a href="http://wiki.ros.org/rviz"><img src="https://img.shields.io/badge/RViz-Visualization-orange?style=for-the-badge&logo=rviz&logoColor=white" alt="RViz"></a>
-  <a href="https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/"><img src="https://img.shields.io/badge/TurtleBot3-Compatible-purple?style=for-the-badge&logo=robotframework&logoColor=white" alt="TurtleBot3"></a>
-</p>
+# ROS 2 Patrol Navigation Project
 
 A comprehensive autonomous patrol robot system built with ROS2, designed for TurtleBot3 simulation. This project implements an intelligent navigation system that allows a robot to autonomously patrol between predefined waypoints using Nav2 stack.
 
-## 🤖 Features
+## Features
 - **Autonomous Waypoint Navigation**: Robot automatically patrols between predefined points
 - **High-Speed Navigation**: Optimized navigation parameters for fast and efficient movement
 - **Configurable Patrol Points**: Easy-to-modify waypoint configuration via YAML files
@@ -19,13 +11,13 @@ A comprehensive autonomous patrol robot system built with ROS2, designed for Tur
 - **Real-time Visualization**: RViz integration for monitoring robot status
 - **Safety Features**: Obstacle avoidance and collision detection
 
-## 📋 Prerequisites
+## Prerequisites
 Before running this project, ensure you have the following installed:
-- **[ROS2 Humble](https://docs.ros.org/en/humble/Installation.html)** (or later)
-- **[TurtleBot3 packages](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/)**
-- **[Nav2 navigation stack](https://navigation.ros.org/)**
-- **[Gazebo simulation environment](https://gazebosim.org/docs/garden/install)**
-- **[RViz visualization tool](http://wiki.ros.org/rviz)**
+- **ROS2 Humble** (or later)
+- **TurtleBot3 packages**
+- **Nav2 navigation stack**
+- **Gazebo simulation environment**
+- **RViz visualization tool**
 
 ### Required ROS2 Packages
 ```bash
@@ -37,13 +29,13 @@ sudo apt install ros-humble-nav2-bringup
 sudo apt install ros-humble-turtlebot3-simulations
 ```
 
-> 📖 **Documentation References:**
-> - [ROS2 Installation Guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
-> - [TurtleBot3 Setup Guide](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/)
-> - [Nav2 Getting Started](https://navigation.ros.org/getting_started/index.html)
-> - [Gazebo Installation](https://gazebosim.org/docs/garden/install_ubuntu)
+**Documentation References:**
+- [ROS2 Installation Guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+- [TurtleBot3 Setup Guide](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/)
+- [Nav2 Getting Started](https://navigation.ros.org/getting_started/index.html)
+- [Gazebo Installation](https://gazebosim.org/docs/garden/install_ubuntu)
 
-## 🚀 Quick Start
+## Quick Start
 ### 1. Clone and Build
 ```bash
 # Create workspace
@@ -80,7 +72,7 @@ source install/setup.bash
 ros2 launch patrol_navigation_project patrol_navigation.launch.py
 ```
 
-## 📁 Project Structure
+## Project Structure
 ```
 src/patrol_navigation_project/
 ├── package.xml                             # Package dependencies and metadata
@@ -96,7 +88,7 @@ src/patrol_navigation_project/
 │   └── patrol_navigation.launch.py       # Navigation stack launcher
 │
 ├── patrol_navigation_project/             # Python package
-│   ├── **init**.py                        # Package initialization
+│   ├── __init__.py                        # Package initialization
 │   ├── patrol_controller.py               # Main patrol logic controller
 │   └── waypoint_manager.py                # Waypoint management system
 │
@@ -110,7 +102,7 @@ src/patrol_navigation_project/
     └── (test files)                       # Unit and integration tests
 ```
 
-## 📱 Configuration
+## Configuration
 ### Patrol Points Configuration
 Edit `config/patrol_points.yaml` to customize patrol waypoints:
 ```yaml
@@ -133,7 +125,7 @@ patrol_points:
     z: 0.0
 ```
 
-> 📚 **Learn More:** [Nav2 Waypoint Following Tutorial](https://navigation.ros.org/tutorials/docs/navigation2_with_keepout_filter.html)
+**Learn More:** [Nav2 Waypoint Following Tutorial](https://navigation.ros.org/tutorials/docs/navigation2_with_keepout_filter.html)
 
 ### Navigation Parameters
 The project includes optimized navigation parameters in `config/nav2_params.yaml`:
@@ -142,10 +134,10 @@ The project includes optimized navigation parameters in `config/nav2_params.yaml
 - **Optimized Safety**: Balanced obstacle avoidance and speed
 - **Smart Path Planning**: Efficient trajectory generation
 
-> 🔧 **Parameter References:**
-> - [Nav2 Configuration Guide](https://navigation.ros.org/configuration/index.html)
-> - [DWB Controller Parameters](https://navigation.ros.org/configuration/packages/configuring-dwb-controller.html)
-> - [Behavior Tree Navigator](https://navigation.ros.org/configuration/packages/configuring-bt-navigator.html)
+**Parameter References:**
+- [Nav2 Configuration Guide](https://navigation.ros.org/configuration/index.html)
+- [DWB Controller Parameters](https://navigation.ros.org/configuration/packages/configuring-dwb-controller.html)
+- [Behavior Tree Navigator](https://navigation.ros.org/configuration/packages/configuring-bt-navigator.html)
 
 ### Key Configuration Sections
 **Behavior Server Configuration:**
@@ -174,7 +166,7 @@ waypoint_follower:
     stop_on_failure: false
 ```
 
-## 🎮 Usage
+## Usage
 ### Basic Operation
 1. **Start Simulation**: Launch Gazebo with TurtleBot3
    ```bash
@@ -200,7 +192,7 @@ ros2 topic echo /current_waypoint
 ros2 param list /controller_server
 ```
 
-## 🔧 Customization
+## Customization
 ### Adding New Waypoints
 1. Edit `config/patrol_points.yaml`
 2. Add new waypoint with name and coordinates:
@@ -226,7 +218,7 @@ ros2 param list /controller_server
 2. Add custom displays and panels
 3. Save configuration for consistent visualization
 
-## 🚨 Troubleshooting
+## Troubleshooting
 ### Common Issues
 **Robot moves too slowly:**
 - Check `config/nav2_params.yaml` speed settings
