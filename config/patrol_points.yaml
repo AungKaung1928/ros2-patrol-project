@@ -1,4 +1,5 @@
 patrol_points:
+  # Existing 4
   - name: "point_1"
     x: 2.0
     y: 0.0
@@ -14,4 +15,22 @@ patrol_points:
   - name: "point_4"
     x: 0.0
     y: 0.0
+    z: 0.0
+  
+  # Added new waypoints
+  - name: "point_5"
+    x: -1.5
+    y: -1.5
+    z: 0.0
+  - name: "point_6"
+    x: -1.5
+    y: 1.5
+    z: 0.0
+  - name: "point_7"
+    x: 1.5
+    y: -1.5
+    z: 0.0
+  - name: "point_8"
+    x: -0.3
+    y: 0.5
     z: 0.0
