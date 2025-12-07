@@ -1,36 +1,59 @@
+# Full coverage patrol for TurtleBot3 World
 patrol_points:
-  # Existing 4
-  - name: "point_1"
-    x: 2.0
+  - name: "origin_station"
+    x: 0.0
     y: 0.0
     z: 0.0
+    description: "Starting position and return station"
+  
   - name: "point_2"
     x: 2.0
     y: 2.0
     z: 0.0
+    description: "Northeast quadrant checkpoint"
+  
   - name: "point_3"
     x: 0.0
     y: 2.0
     z: 0.0
-  - name: "point_4"
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    description: "North corridor monitoring"
   
-  # Added new waypoints
   - name: "point_5"
     x: -1.5
     y: -1.5
     z: 0.0
+    description: "Southwest corner coverage"
+  
   - name: "point_6"
     x: -1.5
     y: 1.5
     z: 0.0
+    description: "Northwest area patrol"
+  
   - name: "point_7"
     x: 1.5
     y: -1.5
     z: 0.0
-  - name: "point_8"
+    description: "Southeast perimeter check"
+  
+  - name: "central_hub"
     x: -0.3
     y: 0.5
     z: 0.0
+    description: "Central monitoring position"
+
+patrol_config:
+  total_waypoints: 7
+  loop_enabled: true
+  wait_at_waypoint: 2.0  # seconds
+  retry_on_failure: true
+  max_retries: 3
+  timeout_per_waypoint: 60.0  # seconds
+
+map_info:
+  name: "turtlebot3_world"
+  resolution: 0.05
+  origin_x: -2.0
+  origin_y: -2.0
+  width: 4.0
+  height: 4.0
