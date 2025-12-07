@@ -1,6 +1,6 @@
 #!/bin/bash
 # Quick Start Installation Script for Patrol Navigation Project (Python)
-# Author: Allkg
+# Author: AungKaung
 # ROS2 Humble + Python 3.10+
 
 set -e
