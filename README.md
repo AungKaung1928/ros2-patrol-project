@@ -1,5 +1,4 @@
 # ROS2 Autonomous Patrol Navigation System
-
 [![ROS2](https://img.shields.io/badge/ROS2-Humble-blue?style=for-the-badge&logo=ros&logoColor=white)](https://docs.ros.org/en/humble/)
 [![Python](https://img.shields.io/badge/Python-3.10-green?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
@@ -8,16 +7,17 @@
 
 ## Overview
 
-Advanced autonomous patrol navigation system with 8-waypoint full coverage for TurtleBot3 world. Built with ROS2 Humble, Nav2, and Python 3.10, featuring real-time visualization, intelligent path planning, and continuous surveillance patrol.
+Advanced autonomous patrol navigation system with configurable multi-waypoint coverage for TurtleBot3 world. Built with ROS2 Humble, Nav2, and Python 3.10, featuring real-time visualization, intelligent path planning, retry logic, and continuous surveillance patrol with YAML-driven configuration.
 
 ### Key Features
 
-- **8-Waypoint Full Coverage**: Complete patrol of entire TurtleBot3 world
+- **Flexible Waypoint Configuration**: YAML-driven patrol points with descriptions and metadata
+- **Intelligent Retry Logic**: Configurable retry attempts with max retry limits and failure handling
+- **Loop Control**: Enable/disable continuous patrol loops via configuration
 - **Real-time Visualization**: RViz markers showing waypoints, patrol path, and current target
 - **High-Speed Navigation**: Configurable speeds up to 4.0 m/s
-- **Intelligent Obstacle Avoidance**: Dynamic replanning with Nav2
-- **Continuous Patrol Loop**: Automatic waypoint cycling with retry on failure
-- **YAML Configuration**: Easy waypoint and parameter management
+- **Dynamic Obstacle Avoidance**: Adaptive replanning with Nav2
+- **Production-Grade Architecture**: Config-driven behavior, no hardcoded values
 
 ## System Architecture
 ```mermaid
@@ -25,29 +25,32 @@ graph TD
     A[patrol_controller.py] --> B[WaypointManager]
     A --> C[PatrolVisualizer]
     A --> D[Nav2 Action Client]
-    D --> E[Nav2 Stack]
-    E --> F[Planner Server]
-    E --> G[Controller Server]
-    C --> H[RViz Markers]
+    B --> E[YAML Config Loader]
+    E --> F[Patrol Points]
+    E --> G[Patrol Config]
+    E --> H[Map Info]
+    D --> I[Nav2 Stack]
+    I --> J[Planner Server]
+    I --> K[Controller Server]
+    C --> L[RViz Markers]
 ```
 
 ### Component Overview
 
 | Component | File | Responsibility |
 |-----------|------|---------------|
-| **Patrol Controller** | `patrol_controller.py` | Main orchestration, navigation goal management |
-| **Waypoint Manager** | `waypoint_manager.py` | YAML loading, waypoint sequence control |
+| **Patrol Controller** | `patrol_controller.py` | Main orchestration, navigation goal management, retry logic |
+| **Waypoint Manager** | `waypoint_manager.py` | YAML loading, waypoint sequence control, config management |
 | **Patrol Visualizer** | `patrol_visualizer.py` | RViz marker publication for waypoints and path |
 | **Nav2 Action Client** | Built into `patrol_controller.py` | Interface to Nav2 navigation stack |
 
 ## Coverage Map
 ```
-8-Waypoint Full Coverage Layout:
-
+7-Waypoint Strategic Coverage Layout:
      North
        ↑
        
-  NW──────NC──────NE
+  NW──────────────NE
   │               │
 W │      CH       │ E
   │               │
@@ -56,21 +59,21 @@ W │      CH       │ E
      South
 
 Waypoints:
-0. point_1 (2.0,  0.0)   - East monitoring position
-1. point_2 (2.0,  2.0)   - Northeast corner coverage
-2. point_3 (0.0,  2.0)   - North perimeter
-3. point_4 (0.0,  0.0)   - Origin station
-4. point_5 (-1.5, -1.5)  - Southwest corner
-5. point_6 (-1.5,  1.5)  - Northwest corner
-6. point_7 (1.5, -1.5)   - Southeast corner
-7. point_8 (-0.3,  0.5)  - Central hub
+0. origin_station (0.0,   0.0)   - Starting position and return station
+1. point_2        (2.0,   2.0)   - Northeast quadrant checkpoint
+2. point_3        (0.0,   2.0)   - North corridor monitoring
+3. point_5        (-1.5, -1.5)   - Southwest corner coverage
+4. point_6        (-1.5,  1.5)   - Northwest area patrol
+5. point_7        (1.5,  -1.5)   - Southeast perimeter check
+6. central_hub    (-0.3,  0.5)   - Central monitoring position
 
-Total patrol loop: ~15-18m, 4-6 minutes per cycle
+Total patrol loop: ~14-16m, 4-5 minutes per cycle
 ```
 
 ## Prerequisites
 
 ### System Requirements
+
 - Ubuntu 22.04 LTS
 - ROS2 Humble Hawksbill
 - Python 3.10+
@@ -137,36 +140,77 @@ ros2 launch patrol_navigation_project patrol_navigation.launch.py
 patrol_navigation_project/
 ├── patrol_navigation_project/        # Python package
 │   ├── __init__.py
-│   ├── patrol_controller.py         # Main controller (370 lines)
-│   ├── waypoint_manager.py          # Waypoint handling (87 lines)
-│   └── patrol_visualizer.py         # RViz visualization (175 lines)
+│   ├── patrol_controller.py         # Main navigation orchestration
+│   ├── waypoint_manager.py          # YAML config loader & waypoint sequencing
+│   └── patrol_visualizer.py         # RViz marker visualization
 │
 ├── config/
-│   ├── nav2_params.yaml             # Navigation parameters
-│   └── patrol_points.yaml           # 8-waypoint definitions
+│   ├── nav2_params.yaml             # Nav2 stack parameters
+│   └── patrol_points.yaml           # Waypoint definitions & patrol config
 │
 ├── launch/
-│   ├── patrol_gazebo.launch.py      # Gazebo simulation
-│   └── patrol_navigation.launch.py  # Navigation stack + patrol
+│   ├── patrol_gazebo.launch.py      # Gazebo simulation launcher
+│   └── patrol_navigation.launch.py  # Nav2 + patrol system launcher
 │
 ├── test/
-│   ├── test_copyright.py            # Copyright compliance
-│   ├── test_flake8.py              # PEP8 style check
-│   └── test_pep257.py              # Docstring check
+│   ├── test_copyright.py            # Copyright compliance check
+│   ├── test_flake8.py              # PEP8 style validation
+│   └── test_pep257.py              # Docstring compliance
 │
 ├── resource/
 │   └── patrol_navigation_project    # ROS2 package marker
 │
 ├── rviz/
-│   └── patrol_config.rviz           # RViz configuration
+│   └── patrol_config.rviz           # RViz visualization config
 │
 ├── setup.py                         # Python package setup
 ├── setup.cfg                        # Package metadata
-├── package.xml                      # ROS2 package manifest
+├── package.xml                      # ROS2 dependencies
 └── README.md
 ```
 
 ## Configuration
+
+### YAML Configuration Structure
+
+The system uses a three-section YAML configuration for production-grade flexibility:
+```yaml
+# config/patrol_points.yaml
+
+# Section 1: Waypoint Definitions
+patrol_points:
+  - name: "origin_station"
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    description: "Starting position and return station"
+  
+  - name: "point_2"
+    x: 2.0
+    y: 2.0
+    z: 0.0
+    description: "Northeast quadrant checkpoint"
+  
+  # ... additional waypoints
+
+# Section 2: Patrol Behavior Configuration
+patrol_config:
+  total_waypoints: 7
+  loop_enabled: true              # Continuous patrol loop
+  wait_at_waypoint: 2.0          # Seconds to pause at each waypoint
+  retry_on_failure: true          # Retry failed navigation goals
+  max_retries: 3                  # Maximum retry attempts per waypoint
+  timeout_per_waypoint: 60.0     # Navigation timeout in seconds
+
+# Section 3: Map Metadata (reference)
+map_info:
+  name: "turtlebot3_world"
+  resolution: 0.05
+  origin_x: -2.0
+  origin_y: -2.0
+  width: 4.0
+  height: 4.0
+```
 
 ### Adjusting Robot Speed
 
@@ -224,66 +268,50 @@ source install/setup.bash
 # Restart Terminal 2
 ```
 
+### Modifying Patrol Behavior
+
+Edit `config/patrol_points.yaml` to change patrol behavior **without code changes**:
+```yaml
+patrol_config:
+  # Disable continuous loop (patrol once and stop)
+  loop_enabled: false
+  
+  # Increase wait time at each waypoint
+  wait_at_waypoint: 5.0
+  
+  # Disable retry on navigation failure
+  retry_on_failure: false
+  
+  # Increase retry attempts
+  max_retries: 5
+  
+  # Extend navigation timeout for difficult waypoints
+  timeout_per_waypoint: 120.0
+```
+
+**No rebuild needed** - just restart the patrol system:
+```bash
+# Terminal 2 - Ctrl+C, then:
+ros2 launch patrol_navigation_project patrol_navigation.launch.py
+```
+
 ### Adding New Waypoints
 
 **Step 1: Edit `config/patrol_points.yaml`**
 ```yaml
 patrol_points:
-  # Existing 8 waypoints
-  - name: "point_1"
-    x: 2.0
-    y: 0.0
-    z: 0.0
-    description: "East monitoring position"
-  
-  - name: "point_2"
-    x: 2.0
-    y: 2.0
-    z: 0.0
-    description: "Northeast corner"
-  
-  - name: "point_3"
-    x: 0.0
-    y: 2.0
-    z: 0.0
-    description: "North perimeter"
-  
-  - name: "point_4"
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    description: "Origin station"
-  
-  - name: "point_5"
-    x: -1.5
-    y: -1.5
-    z: 0.0
-    description: "Southwest corner"
-  
-  - name: "point_6"
-    x: -1.5
-    y: 1.5
-    z: 0.0
-    description: "Northwest corner"
-  
-  - name: "point_7"
-    x: 1.5
-    y: -1.5
-    z: 0.0
-    description: "Southeast corner"
-  
-  - name: "point_8"
-    x: -0.3
-    y: 0.5
-    z: 0.0
-    description: "Central hub"
+  # Existing waypoints...
   
   # Add new waypoint
-  - name: "point_9"
-    x: -1.5
-    y: 1.0
+  - name: "new_checkpoint"
+    x: 1.0
+    y: -1.0
     z: 0.0
-    description: "West wing checkpoint"
+    description: "Additional coverage point"
+
+patrol_config:
+  total_waypoints: 8  # Update count
+  # ... rest of config
 ```
 
 **Waypoint placement guidelines:**
@@ -294,11 +322,7 @@ patrol_points:
 
 **Step 2: No code changes needed**
 
-The `WaypointManager` class automatically loads all waypoints from YAML:
-```python
-# waypoint_manager.py handles dynamic loading
-waypoints = self.load_waypoints()  # Automatically reads all entries
-```
+The system automatically loads all waypoints from YAML.
 
 **Step 3: Test new waypoint**
 
@@ -317,8 +341,9 @@ ros2 launch patrol_navigation_project patrol_navigation.launch.py
 
 System will automatically:
 - Load all waypoints from YAML
-- Cycle through them in order (point_1 → point_2 → ... → point_N → point_1)
+- Cycle through them in order
 - Create visualization markers for all points
+- Apply patrol configuration settings
 
 **Viewing loaded waypoints:**
 ```bash
@@ -334,20 +359,26 @@ ros2 topic echo /current_target
 Simply delete or comment out entries in `patrol_points.yaml`:
 ```yaml
 patrol_points:
-  - name: "point_1"
-    x: 2.0
+  - name: "origin_station"
+    x: 0.0
     y: 0.0
     z: 0.0
-    
+    description: "Starting position"
+  
   # - name: "point_2"     # Commented out - skipped
   #   x: 2.0
   #   y: 2.0
   #   z: 0.0
+  #   description: "Northeast corner"
   
-  - name: "point_3"        # Will become point_2 in sequence
+  - name: "point_3"        # Will become waypoint #2 in sequence
     x: 0.0
-    y: -2.0
+    y: 2.0
     z: 0.0
+    description: "North corridor"
+
+patrol_config:
+  total_waypoints: 2  # Update count
 ```
 
 **Minimum requirement:** 2 waypoints for patrol to function.
@@ -379,40 +410,41 @@ self.target_marker = Marker()          # Yellow arrow
 
 ## Monitoring Commands
 ```bash
-# Watch current target waypoint
-ros2 topic echo /current_target
+# Watch patrol configuration on startup
+ros2 topic echo /rosout | grep "Patrol config"
 
-# Monitor robot velocity
-ros2 topic echo /cmd_vel
+# Monitor current target waypoint
+ros2 topic echo /current_target
 
 # Check navigation status
 ros2 action list
 
+# View loaded configuration
+ros2 param list /waypoint_manager
+
+# Monitor retry attempts
+ros2 topic echo /rosout | grep "Retry"
+
+# Check robot velocity
+ros2 topic echo /cmd_vel
+
 # View all waypoint markers
 ros2 topic echo /patrol_waypoints --once
-
-# Monitor patrol controller logs
-ros2 topic echo /rosout | grep patrol_controller
 
 # Check current speed parameters
 ros2 param get /controller_server FollowPath.max_vel_x
 ros2 param get /controller_server FollowPath.max_vel_theta
-
-# List all controller parameters
-ros2 param list /controller_server
 ```
 
 ## Performance Metrics
 
 | Metric | Value |
 |--------|-------|
-| Full Loop Time | 4-6 minutes |
-| Total Distance | ~15-18 meters |
+| Full Loop Time | 4-5 minutes |
+| Total Distance | ~14-16 meters |
 | Average Speed | 2.5-3.0 m/s |
 | Waypoint Accuracy | ±0.3m |
 | Success Rate | >95% |
-| Code Lines | 420 LOC |
-| Build Time | 5-10s |
 | Memory Usage | ~60MB |
 | CPU Usage | 6-10% |
 
@@ -428,7 +460,8 @@ ros2 param list /controller_server
 | Waypoints not visible | Enable MarkerArray in RViz Add → `/patrol_waypoints` |
 | YAML parse error | Validate at yamllint.com, check indentation |
 | "Goal was rejected" | Nav2 not ready, wait 10s after launch |
-| Infinite retry loop | Check waypoint is reachable, increase tolerance |
+| Max retries exceeded | Check waypoint reachability, increase `max_retries` in config |
+| Patrol stops unexpectedly | Check `loop_enabled: true` in `patrol_config` |
 
 ### Recovery Commands
 ```bash
