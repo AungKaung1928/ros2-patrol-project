@@ -144,7 +144,7 @@ patrol_navigation_project/
 │
 ├── config/
 │   ├── nav2_params.yaml             # Navigation parameters
-│   └── patrol_points.yaml           # Waypoint definitions & config
+│   └── patrol_points.yaml           # 7-waypoint definitions & config
 │
 ├── launch/
 │   ├── patrol_gazebo.launch.py      # Gazebo simulation
