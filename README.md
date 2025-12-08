@@ -129,7 +129,7 @@ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 **Terminal 2 - Navigation & Patrol (wait 30 seconds after Terminal 1):**
 ```bash
 source /opt/ros/humble/setup.bash
-cd ~/ros2_patrol_ws && source install/setup.bash
+cd ~/ros2_patrol_ws
 ros2 launch patrol_navigation_project patrol_navigation.launch.py
 ```
 
