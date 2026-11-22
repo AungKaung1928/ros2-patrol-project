@@ -62,7 +62,6 @@ patrol_points:
 
 # Section 2: Patrol Behavior Configuration
 patrol_config:
-  total_waypoints: 7
   loop_enabled: true              # Continuous patrol
   wait_at_waypoint: 2.0          # Pause duration (seconds)
   retry_on_failure: true          # Enable retry
@@ -151,7 +150,6 @@ patrol_points:
     description: "Additional coverage point"
 
 patrol_config:
-  total_waypoints: 8  # Update count
 ```
 
 **Waypoint placement guidelines:**
@@ -187,7 +185,6 @@ patrol_points:
   #   z: 0.0
 
 patrol_config:
-  total_waypoints: 6  # Update count
 ```
 
 **Minimum requirement:** 2 waypoints. No rebuild needed.

@@ -43,7 +43,6 @@ patrol_points:
     description: "Central monitoring position"
 
 patrol_config:
-  total_waypoints: 7
   loop_enabled: true
   wait_at_waypoint: 2.0  # seconds
   retry_on_failure: true
