@@ -47,10 +47,17 @@ for i, ((_, ax, ay), (_, bx, by)) in enumerate(edges):
     dash = ' stroke-dasharray="5 4"' if i == len(pts) - 1 else ''
     el.append(f'<line x1="{sx:.1f}" y1="{sy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="#10161e" '
               f'stroke-width="1.6" marker-end="url(#a)"{dash}/>')
+def label(px, py, text):
+    """Right of the point, or left of it when it would run past the edge (about 6.6 px per character)."""
+    if px + 14 + 6.6 * len(text) > W - 4:
+        return f'<text x="{px - 14:.1f}" y="{py - 12:.1f}" text-anchor="end" fill="#10161e">{text}</text>'
+    return f'<text x="{px + 14:.1f}" y="{py - 12:.1f}" fill="#10161e">{text}</text>'
+
+
 for i, (name, x, y) in enumerate(pts, 1):
     el.append(f'<circle cx="{X(x):.1f}" cy="{Y(y):.1f}" r="10" fill="#005f73"/>'
               f'<text x="{X(x):.1f}" y="{Y(y) + 4.5:.1f}" text-anchor="middle" fill="#ffffff" font-weight="700">{i}</text>'
-              f'<text x="{X(x) + 14:.1f}" y="{Y(y) - 12:.1f}" fill="#10161e">{name} ({x:g}, {y:g})</text>')
+              + label(X(x), Y(y), f'{name} ({x:g}, {y:g})'))
 el.append(f'<text x="8" y="{H - 28}" fill="#3f4d58">Configured patrol route ({src}), map frame, metres.</text>'
           f'<text x="8" y="{H - 10}" fill="#3f4d58">{"Dashed = loop back to 1. " if loop else ""}Not a recorded run.</text>')
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
