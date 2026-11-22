@@ -41,7 +41,7 @@ The route as configured in `config/patrol_points.yaml` (drawn by `scripts/plot_r
 - `waypoint_manager.py` loads the YAML; `patrol_visualizer.py` publishes the RViz markers.
 - Nav2 settings are in `config/nav2_params.yaml`.
 
-Not measured: loop time, success rate and waypoint accuracy (no script records them).
+A goal canceled from outside the node (another Nav2 client, RViz) ends the patrol without a resume. Not measured: loop time, success rate and waypoint accuracy (no script records them).
 
 More: project layout, configuration, adding waypoints, monitoring and troubleshooting in [docs/USAGE.md](docs/USAGE.md).
 
