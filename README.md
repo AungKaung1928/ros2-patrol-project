@@ -31,6 +31,10 @@ export TURTLEBOT3_MODEL=burger
 ros2 launch patrol_navigation_project patrol_navigation.launch.py
 ```
 
+![Configured patrol route: 7 points in the map frame, visited in order and looped](docs/route.svg)
+
+The route as configured in `config/patrol_points.yaml` (drawn by `scripts/plot_route.py`; CI fails if the figure and the config disagree). The order crosses the arena centre three times: it is the configured order, not an optimised tour.
+
 ## How it works
 
 - `patrol_controller.py` sends each waypoint as a Nav2 `NavigateToPose` goal, retries a failed goal up to `max_retries` (3), then moves on; `loop_enabled` restarts the round.
