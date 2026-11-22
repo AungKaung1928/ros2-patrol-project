@@ -24,7 +24,6 @@ class WaypointManager(Node):
     self.wait_at_waypoint = 2.0
     self.retry_on_failure = True
     self.max_retries = 3
-    self.timeout_per_waypoint = 60.0
     
     # Map metadata (optional)
     self.map_info = {}
@@ -67,9 +66,6 @@ class WaypointManager(Node):
         self.wait_at_waypoint = float(patrol_cfg.get('wait_at_waypoint', 2.0))
         self.retry_on_failure = patrol_cfg.get('retry_on_failure', True)
         self.max_retries = int(patrol_cfg.get('max_retries', 3))
-        self.timeout_per_waypoint = float(
-          patrol_cfg.get('timeout_per_waypoint', 60.0)
-        )
       
       # Parse optional map metadata
       if 'map_info' in config:
@@ -121,8 +117,7 @@ class WaypointManager(Node):
       'loop_enabled': self.loop_enabled,
       'wait_at_waypoint': self.wait_at_waypoint,
       'retry_on_failure': self.retry_on_failure,
-      'max_retries': self.max_retries,
-      'timeout_per_waypoint': self.timeout_per_waypoint
+      'max_retries': self.max_retries
     }
   
   def get_next_point(self, current_index):

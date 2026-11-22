@@ -48,7 +48,6 @@ patrol_config:
   wait_at_waypoint: 2.0  # seconds
   retry_on_failure: true
   max_retries: 3
-  timeout_per_waypoint: 60.0  # seconds
 
 map_info:
   name: "turtlebot3_world"

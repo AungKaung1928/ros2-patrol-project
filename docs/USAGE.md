@@ -67,7 +67,6 @@ patrol_config:
   wait_at_waypoint: 2.0          # Pause duration (seconds)
   retry_on_failure: true          # Enable retry
   max_retries: 3                  # Max retry attempts
-  timeout_per_waypoint: 60.0     # Navigation timeout
 
 # Section 3: Map Metadata (reference)
 map_info:
@@ -130,7 +129,6 @@ patrol_config:
   wait_at_waypoint: 5.0         # Increase wait time
   retry_on_failure: false        # Disable retry
   max_retries: 5                 # Increase retry attempts
-  timeout_per_waypoint: 120.0   # Extend timeout
 ```
 
 **No rebuild needed** - just restart:
