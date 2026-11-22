@@ -4,7 +4,7 @@
   <name>patrol_navigation_project</name>
   <version>1.0.0</version>
   <description>ROS2 autonomous patrol navigation system using Nav2 stack</description>
-  <maintainer email="allkg@example.com">allkg</maintainer>
+  <maintainer email="dev@example.com">Developer</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
