@@ -207,6 +207,7 @@ class PatrolController(Node):
     
     if not goal_handle.accepted:
       self.get_logger().error('Goal was rejected by server')
+      self._on_failure()
       return
     
     self.get_logger().info('Goal accepted by server, waiting for result')
@@ -215,6 +216,41 @@ class PatrolController(Node):
     # Get result
     result_future = goal_handle.get_result_async()
     result_future.add_done_callback(self.result_callback)
+
+  def _on_failure(self):
+    """Aborted or rejected goal: retry the same point up to max_retries, then skip it."""
+    if self.patrol_config['retry_on_failure']:
+      self.retry_count += 1
+      max_retries = self.patrol_config['max_retries']
+      
+      if self.retry_count <= max_retries:
+        current_point = self.patrol_points[self.current_point_index]
+        self.get_logger().error(
+          f"✗ Navigation to {current_point['name']} failed! "
+          f"Retry {self.retry_count}/{max_retries}..."
+        )
+        time.sleep(2.0)
+        if self.is_patrolling:
+          self.go_to_next_point()
+      else:
+        self.get_logger().error(
+          f'✗ Max retries ({max_retries}) reached. Skipping waypoint.'
+        )
+        self.retry_count = 0
+        
+        # Move to next waypoint
+        next_index, next_point = self.waypoint_manager.get_next_point(
+          self.current_point_index
+        )
+        if next_index is not None:
+          self.current_point_index = next_index
+          if self.is_patrolling:
+            self.go_to_next_point()
+        else:
+          self.is_patrolling = False
+    else:
+      self.get_logger().error('✗ Navigation failed! Retry disabled.')
+      self.is_patrolling = False
 
   def feedback_callback(self, feedback_msg):
     """Step 11: Handle navigation feedback (optional)"""
@@ -267,39 +303,7 @@ class PatrolController(Node):
       self.retry_count = 0
     
     elif status == 6:  # ABORTED
-      if self.patrol_config['retry_on_failure']:
-        self.retry_count += 1
-        max_retries = self.patrol_config['max_retries']
-        
-        if self.retry_count <= max_retries:
-          current_point = self.patrol_points[self.current_point_index]
-          self.get_logger().error(
-            f"✗ Navigation to {current_point['name']} failed! "
-            f"Retry {self.retry_count}/{max_retries}..."
-          )
-          time.sleep(2.0)
-          if self.is_patrolling:
-            self.go_to_next_point()
-        else:
-          self.get_logger().error(
-            f'✗ Max retries ({max_retries}) reached. Skipping waypoint.'
-          )
-          self.retry_count = 0
-          
-          # Move to next waypoint
-          next_index, next_point = self.waypoint_manager.get_next_point(
-            self.current_point_index
-          )
-          if next_index is not None:
-            self.current_point_index = next_index
-            if self.is_patrolling:
-              self.go_to_next_point()
-          else:
-            self.is_patrolling = False
-      else:
-        self.get_logger().error('✗ Navigation failed! Retry disabled.')
-        self.is_patrolling = False
-    
+      self._on_failure()
     else:
       self.get_logger().error(f'Unknown result code: {status}')
 
