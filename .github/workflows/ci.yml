@@ -35,6 +35,7 @@ jobs:
           launch_test test/test_launch_retry.py
           launch_test test/test_launch_no_loop.py
           launch_test test/test_launch_bounded_retry.py
+          launch_test test/test_launch_rejected.py
       - name: Route figure matches the config
         run: |
           cd src/patrol_navigation_project
