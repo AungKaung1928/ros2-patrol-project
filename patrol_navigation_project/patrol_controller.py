@@ -10,6 +10,7 @@ from rclpy.action import ActionClient
 from rclpy.duration import Duration
 from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
 from nav2_msgs.action import NavigateToPose
+from action_msgs.msg import GoalStatus
 from .waypoint_manager import WaypointManager
 from .patrol_visualizer import PatrolVisualizer
 import time
@@ -262,7 +263,7 @@ class PatrolController(Node):
     result = future.result()
     status = result.status
     
-    if status == 4:  # SUCCEEDED
+    if status == GoalStatus.STATUS_SUCCEEDED:
       current_point = self.patrol_points[self.current_point_index]
       description = current_point.get('description', '')
       
@@ -298,11 +299,11 @@ class PatrolController(Node):
       if self.is_patrolling:
         self.go_to_next_point()
     
-    elif status == 5:  # CANCELED
+    elif status == GoalStatus.STATUS_CANCELED:
       self.get_logger().info('Navigation was canceled')
       self.retry_count = 0
     
-    elif status == 6:  # ABORTED
+    elif status == GoalStatus.STATUS_ABORTED:
       self._on_failure()
     else:
       self.get_logger().error(f'Unknown result code: {status}')
