@@ -7,7 +7,6 @@ Manages autonomous patrol between waypoints using Nav2 action client
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
-from rclpy.duration import Duration
 from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
 from nav2_msgs.action import NavigateToPose
 from action_msgs.msg import GoalStatus
