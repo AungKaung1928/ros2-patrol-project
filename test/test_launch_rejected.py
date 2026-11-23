@@ -8,7 +8,6 @@ import unittest
 
 import launch
 import launch_ros.actions
-import launch_testing
 import launch_testing.actions
 import pytest
 import rclpy
@@ -48,7 +47,8 @@ class TestRejected(unittest.TestCase):
             goal_handle.succeed()
             return NavigateToPose.Result()
 
-        server = ActionServer(fake, NavigateToPose, 'navigate_to_pose', execute, goal_callback=on_goal)
+        server = ActionServer(fake, NavigateToPose, 'navigate_to_pose', execute,
+                              goal_callback=on_goal)
         executor = MultiThreadedExecutor()
         executor.add_node(fake)
         try:
@@ -59,5 +59,6 @@ class TestRejected(unittest.TestCase):
             server.destroy()
             executor.shutdown()
             fake.destroy_node()
-        self.assertGreaterEqual(len(requests), 3, f'goal requests seen: {requests} (stalled after a rejection?)')
+        self.assertGreaterEqual(len(requests), 3,
+                                f'goal requests seen: {requests} (stalled after a rejection?)')
         self.assertEqual(requests[0], requests[1], 'the rejected point was not retried')

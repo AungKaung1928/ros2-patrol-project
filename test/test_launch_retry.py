@@ -10,7 +10,6 @@ import unittest
 
 import launch
 import launch_ros.actions
-import launch_testing
 import launch_testing.actions
 import pytest
 import rclpy

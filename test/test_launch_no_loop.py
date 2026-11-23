@@ -1,4 +1,5 @@
-"""Launch test (same as the C++ port): with patrol_config.loop_enabled false the node visits each point once and stops.
+"""
+Launch test (same as the C++ port): loop_enabled false visits each point once and stops.
 
 The test writes its own patrol_points.yaml (2 points, loop off) into a temporary package
 overlay placed first on AMENT_PREFIX_PATH, so the installed node loads it instead of the
@@ -12,7 +13,6 @@ import unittest
 
 import launch
 import launch_ros.actions
-import launch_testing
 import launch_testing.actions
 import pytest
 import rclpy
@@ -35,7 +35,8 @@ patrol_config:
 def make_overlay():
     root = tempfile.mkdtemp(prefix='patrol_overlay_')
     os.makedirs(os.path.join(root, 'share', 'ament_index', 'resource_index', 'packages'))
-    open(os.path.join(root, 'share', 'ament_index', 'resource_index', 'packages', PKG), 'w').close()
+    open(os.path.join(root, 'share', 'ament_index', 'resource_index', 'packages', PKG),
+         'w').close()
     os.makedirs(os.path.join(root, 'share', PKG, 'config'))
     with open(os.path.join(root, 'share', PKG, 'config', 'patrol_points.yaml'), 'w') as f:
         f.write(CONFIG)
@@ -45,8 +46,10 @@ def make_overlay():
 @pytest.mark.launch_test
 def generate_test_description():
     overlay = make_overlay()
-    env = dict(os.environ, AMENT_PREFIX_PATH=overlay + os.pathsep + os.environ.get('AMENT_PREFIX_PATH', ''))
-    node = launch_ros.actions.Node(package=PKG, executable='patrol_controller', output='screen', env=env)
+    env = dict(os.environ,
+               AMENT_PREFIX_PATH=overlay + os.pathsep + os.environ.get('AMENT_PREFIX_PATH', ''))
+    node = launch_ros.actions.Node(package=PKG, executable='patrol_controller', output='screen',
+                                   env=env)
     return launch.LaunchDescription([launch_testing.actions.ReadyToTest(), node]), {'node': node}
 
 

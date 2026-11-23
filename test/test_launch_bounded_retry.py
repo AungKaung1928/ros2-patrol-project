@@ -1,4 +1,5 @@
-"""Launch test (same as the C++ port): the installed patrol_controller against a stand-in Nav2 action server.
+"""
+Launch test (same as the C++ port): patrol_controller against a stand-in Nav2 server.
 
 The test process serves navigate_to_pose and aborts every goal for the first patrol point.
 With the shipped config (retry_on_failure: true, max_retries: 3) the node must try that
@@ -10,7 +11,6 @@ import unittest
 
 import launch
 import launch_ros.actions
-import launch_testing
 import launch_testing.actions
 import pytest
 import rclpy
