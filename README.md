@@ -10,7 +10,7 @@ Requires Ubuntu 22.04, ROS 2 Humble with Nav2 and the TurtleBot3 packages, and G
 
 ```bash
 mkdir -p ~/ros2_patrol_ws/src
-git clone <this repo URL> ~/ros2_patrol_ws/src/patrol_navigation_project
+git clone https://github.com/AungKaung1928/ros2-patrol-project.git ~/ros2_patrol_ws/src/patrol_navigation_project
 cd ~/ros2_patrol_ws
 rosdep install --from-paths src --ignore-src -r -y     # first time only
 colcon build --packages-select patrol_navigation_project
