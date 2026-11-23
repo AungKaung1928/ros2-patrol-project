@@ -45,7 +45,7 @@ A goal canceled from outside the node (another Nav2 client, RViz) ends the patro
 
 More: project layout, configuration, adding waypoints, monitoring and troubleshooting in [docs/USAGE.md](docs/USAGE.md).
 
-Test without Gazebo or Nav2: `cd src/patrol_navigation_project && launch_test test/test_launch_retry.py` (after `source install/setup.bash`) starts the installed node against a stand-in `navigate_to_pose` server that aborts the first goal, and checks the node retries the same point and then moves on to the next one. `test_launch_bounded_retry.py` (skip after `max_retries`) and `test_launch_no_loop.py` (`loop_enabled: false` stops after the last point) are the same tests the C++ port runs. CI runs all three in `ros:humble` on every push.
+Test without Gazebo or Nav2: `cd src/patrol_navigation_project && launch_test test/test_launch_retry.py` (after `source install/setup.bash`) starts the installed node against a stand-in `navigate_to_pose` server that aborts the first goal, and checks the node retries the same point and then moves on to the next one. `test_launch_bounded_retry.py` (skip after `max_retries`) and `test_launch_no_loop.py` (`loop_enabled: false` stops after the last point) run as in the C++ port, and `test_launch_rejected.py` checks a rejected goal is retried like an aborted one. CI runs all four in `ros:humble` on every push.
 
 ## License
 
