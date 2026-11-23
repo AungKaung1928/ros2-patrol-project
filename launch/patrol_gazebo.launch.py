@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Patrol Gazebo Launch - Start TurtleBot3 Gazebo simulation
+Patrol Gazebo Launch - Start TurtleBot3 Gazebo simulation.
+
 Launches the TurtleBot3 world for patrol navigation
 """
 
@@ -11,8 +12,7 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    """Generate launch description for Gazebo simulation"""
-
+    """Generate launch description for Gazebo simulation."""
     # Get package directories
     turtlebot3_gazebo_share = FindPackageShare('turtlebot3_gazebo')
 

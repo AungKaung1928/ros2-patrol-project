@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Patrol Visualizer - RViz marker publication for waypoints and patrol path
+Patrol Visualizer - RViz marker publication for waypoints and patrol path.
+
 Provides real-time visualization of patrol state
 """
 
@@ -11,7 +12,7 @@ from builtin_interfaces.msg import Duration
 
 
 class PatrolVisualizer(Node):
-    """Publishes RViz markers for patrol waypoints and current target"""
+    """Publishes RViz markers for patrol waypoints and current target."""
 
     def __init__(self):
         super().__init__('patrol_visualizer')
@@ -33,10 +34,9 @@ class PatrolVisualizer(Node):
 
     def visualize_waypoints(self, waypoints):
         """
-        Visualize all patrol waypoints with path line
+        Visualize all patrol waypoints with path line.
 
-        Args:
-          waypoints: List of patrol point dictionaries
+        waypoints: List of patrol point dictionaries.
         """
         marker_array = MarkerArray()
 
@@ -55,11 +55,10 @@ class PatrolVisualizer(Node):
 
     def visualize_current_target(self, current, index):
         """
-        Visualize current target waypoint with arrow
+        Visualize current target waypoint with arrow.
 
-        Args:
-          current: Current patrol point dictionary
-          index: Waypoint index
+        current: Current patrol point dictionary.
+        index: Waypoint index.
         """
         marker = Marker()
         marker.header.frame_id = 'map'
@@ -102,14 +101,12 @@ class PatrolVisualizer(Node):
 
     def create_waypoint_marker(self, point, index):
         """
-        Create cylinder marker for waypoint
+        Create cylinder marker for waypoint.
 
-        Args:
-          point: Patrol point dictionary
-          index: Waypoint index
+        point: Patrol point dictionary.
+        index: Waypoint index.
 
-        Returns:
-          Marker message
+        Returns: marker message.
         """
         marker = Marker()
         marker.header.frame_id = 'map'
@@ -144,13 +141,11 @@ class PatrolVisualizer(Node):
 
     def create_path_marker(self, waypoints):
         """
-        Create line strip marker for patrol path
+        Create line strip marker for patrol path.
 
-        Args:
-          waypoints: List of patrol point dictionaries
+        waypoints: List of patrol point dictionaries.
 
-        Returns:
-          Marker message
+        Returns: marker message.
         """
         marker = Marker()
         marker.header.frame_id = 'map'

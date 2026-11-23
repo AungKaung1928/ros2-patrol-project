@@ -1,4 +1,4 @@
-"""Copyright test for patrol_navigation_project"""
+"""Copyright test for patrol_navigation_project."""
 
 from ament_copyright.main import main
 import pytest

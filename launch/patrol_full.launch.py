@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Combined Patrol Navigation Launch
+Combined Patrol Navigation Launch.
+
 Launches Gazebo, Nav2, and Patrol with proper timing
 """
 
@@ -18,8 +19,7 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    """Generate launch description with automatic delays"""
-
+    """Generate launch description with automatic delays."""
     # Get package directories
     nav2_bringup_share = get_package_share_directory('nav2_bringup')
     turtlebot3_navigation2_share = get_package_share_directory('turtlebot3_navigation2')

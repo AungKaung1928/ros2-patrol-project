@@ -1,4 +1,5 @@
-"""Launch test: the installed patrol_controller against a stand-in Nav2 action server.
+"""
+Launch test: the installed patrol_controller against a stand-in Nav2 action server.
 
 The test process serves navigate_to_pose: goal 1 is aborted, later goals succeed.
 With the shipped config (retry_on_failure: true) the node must send the same patrol

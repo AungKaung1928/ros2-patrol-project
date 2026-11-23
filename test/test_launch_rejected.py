@@ -1,6 +1,8 @@
-"""Launch test: a goal rejected by Nav2 must be handled like a failure (retry the same point),
-not stall the patrol. The stand-in navigate_to_pose server rejects the first goal and accepts
-and succeeds every later one.
+"""
+Launch test: a goal rejected by Nav2 is handled like a failure.
+
+The node retries the same point instead of stalling the patrol. The stand-in
+navigate_to_pose server rejects the first goal and accepts and succeeds every later one.
 Run: launch_test test/test_launch_rejected.py (after sourcing the workspace).
 """
 import time

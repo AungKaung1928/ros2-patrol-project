@@ -1,4 +1,4 @@
-"""Flake8 test for patrol_navigation_project"""
+"""Flake8 test for patrol_navigation_project."""
 
 from ament_flake8.main import main_with_errors
 import pytest

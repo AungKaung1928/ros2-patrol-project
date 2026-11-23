@@ -1,4 +1,4 @@
-"""PEP257 test for patrol_navigation_project"""
+"""PEP257 test for patrol_navigation_project."""
 
 from ament_pep257.main import main
 import pytest

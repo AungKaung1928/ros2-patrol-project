@@ -1,6 +1,4 @@
-"""
-Patrol Navigation Project - Autonomous patrol navigation for ROS2
-"""
+"""Patrol Navigation Project: autonomous patrol navigation for ROS 2."""
 
 from .patrol_controller import PatrolController
 from .waypoint_manager import WaypointManager

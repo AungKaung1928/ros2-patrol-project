@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Patrol Navigation Launch - Start Nav2 stack and patrol controller
+Patrol Navigation Launch - Start Nav2 stack and patrol controller.
+
 Launches navigation system with custom parameters and patrol node
 """
 
@@ -14,8 +15,7 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    """Generate launch description for navigation and patrol"""
-
+    """Generate launch description for navigation and patrol."""
     # Get package directories
     nav2_bringup_share = get_package_share_directory('nav2_bringup')
     turtlebot3_navigation2_share = get_package_share_directory(

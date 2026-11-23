@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Waypoint Manager - YAML loading and waypoint sequence management
+Waypoint Manager - YAML loading and waypoint sequence management.
+
 Handles patrol point configuration from YAML files
 """
 from rclpy.node import Node
@@ -10,7 +11,7 @@ import os
 
 
 class WaypointManager(Node):
-    """Manages patrol waypoints loaded from YAML configuration"""
+    """Manages patrol waypoints loaded from YAML configuration."""
 
     def __init__(self):
         super().__init__('waypoint_manager')
@@ -30,7 +31,7 @@ class WaypointManager(Node):
         self.load_patrol_config()
 
     def load_patrol_config(self):
-        """Load patrol configuration from YAML file"""
+        """Load patrol configuration from YAML file."""
         try:
             # Get package share directory
             package_share_directory = get_package_share_directory(
@@ -87,7 +88,7 @@ class WaypointManager(Node):
             self._load_default_points()
 
     def _load_default_points(self):
-        """Load default patrol points if YAML loading fails"""
+        """Load default patrol points if YAML loading fails."""
         self.patrol_points = [
           {'name': 'point_1', 'x': 2.0, 'y': 0.0, 'z': 0.0, 'description': ''},
           {'name': 'point_2', 'x': 2.0, 'y': 2.0, 'z': 0.0, 'description': ''},
@@ -98,19 +99,17 @@ class WaypointManager(Node):
 
     def get_patrol_points(self):
         """
-        Get all patrol points
+        Get all patrol points.
 
-        Returns:
-          List of patrol point dictionaries
+        Returns: list of patrol point dictionaries.
         """
         return self.patrol_points
 
     def get_patrol_config(self):
         """
-        Get patrol behavior configuration
+        Get patrol behavior configuration.
 
-        Returns:
-          Dictionary with patrol config parameters
+        Returns: dictionary with patrol config parameters.
         """
         return {
           'loop_enabled': self.loop_enabled,
@@ -121,13 +120,11 @@ class WaypointManager(Node):
 
     def get_next_point(self, current_index):
         """
-        Get next patrol point in sequence
+        Get next patrol point in sequence.
 
-        Args:
-          current_index: Current waypoint index
+        current_index: Current waypoint index.
 
-        Returns:
-          Tuple of (next_index, patrol_point) or (None, None) if not looping
+        Returns: tuple of (next_index, patrol_point) or (None, None) if not looping.
         """
         if not self.loop_enabled and current_index >= len(self.patrol_points) - 1:
             return (None, None)

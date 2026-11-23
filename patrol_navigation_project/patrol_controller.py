@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Patrol Controller - Main navigation orchestration node
-Manages autonomous patrol between waypoints using Nav2 action client
-"""
+Patrol controller: main navigation orchestration node.
 
+Manages autonomous patrol between waypoints using the Nav2 action client.
+"""
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
@@ -17,7 +17,7 @@ import math
 
 
 class PatrolController(Node):
-    """Main patrol controller node for autonomous waypoint navigation"""
+    """Main patrol controller node for autonomous waypoint navigation."""
 
     def __init__(self):
         super().__init__('patrol_controller')
@@ -67,7 +67,7 @@ class PatrolController(Node):
         self.start_patrol()
 
     def wait_for_nav2(self):
-        """Wait for Nav2 action server to be available and initialize"""
+        """Wait for Nav2 action server to be available and initialize."""
         # Wait for the action server to be available
         while not self.navigate_to_pose_client.wait_for_server(timeout_sec=5.0):
             self.get_logger().info(
@@ -87,16 +87,16 @@ class PatrolController(Node):
 
     def create_pose_stamped(self, x, y, z=0.0, yaw=0.0):
         """
-        Create a PoseStamped message from coordinates
+        Create a PoseStamped message from coordinates.
 
-        Args:
-          x: X coordinate in meters
-          y: Y coordinate in meters
-          z: Z coordinate in meters (default 0.0)
-          yaw: Orientation around Z-axis in radians (default 0.0)
+        x: X coordinate in meters.
+        y: Y coordinate in meters.
+        z: Z coordinate in meters (default 0.0).
+        yaw: orientation around the Z axis in radians (default 0.0).
 
-        Returns:
-          PoseStamped message
+        The result is in the map frame, stamped with the current clock time,
+        and the yaw becomes the unit quaternion (0, 0, sin(yaw/2), cos(yaw/2))
+        (rotation about Z only).
         """
         pose = PoseStamped()
 
@@ -119,7 +119,7 @@ class PatrolController(Node):
         return pose
 
     def set_initial_pose(self):
-        """Step 5: Publish initial pose to set robot location at origin"""
+        """Step 5: Publish initial pose to set robot location at origin."""
         initial_pose = PoseWithCovarianceStamped()
         initial_pose.header.frame_id = 'map'
         initial_pose.header.stamp = self.get_clock().now().to_msg()
@@ -149,7 +149,7 @@ class PatrolController(Node):
         time.sleep(2.0)
 
     def start_patrol(self):
-        """Step 6: Start autonomous patrol through waypoints"""
+        """Step 6: Start autonomous patrol through waypoints."""
         self.get_logger().info(
           f'Starting patrol with {len(self.patrol_points)} waypoints...'
         )
@@ -161,7 +161,7 @@ class PatrolController(Node):
         self.go_to_next_point()
 
     def go_to_next_point(self):
-        """Step 7: Navigate to next patrol point"""
+        """Step 7: Navigate to next patrol point."""
         if not self.patrol_points:
             self.get_logger().error('No patrol points available!')
             return
@@ -202,7 +202,7 @@ class PatrolController(Node):
         send_goal_future.add_done_callback(self.goal_response_callback)
 
     def goal_response_callback(self, future):
-        """Step 10: Handle goal acceptance/rejection"""
+        """Step 10: Handle goal acceptance/rejection."""
         goal_handle = future.result()
 
         if not goal_handle.accepted:
@@ -253,12 +253,12 @@ class PatrolController(Node):
             self.is_patrolling = False
 
     def feedback_callback(self, feedback_msg):
-        """Step 11: Handle navigation feedback (optional)"""
+        """Step 11: Handle navigation feedback (optional)."""
         # Can log progress here if needed
         pass
 
     def result_callback(self, future):
-        """Step 12: Handle navigation result with retry logic"""
+        """Step 12: Handle navigation result with retry logic."""
         result = future.result()
         status = result.status
 
@@ -308,7 +308,7 @@ class PatrolController(Node):
             self.get_logger().error(f'Unknown result code: {status}')
 
     def stop_patrol(self):
-        """Stop autonomous patrol"""
+        """Stop autonomous patrol."""
         self.get_logger().info('Stopping patrol...')
         self.is_patrolling = False
 
@@ -317,7 +317,7 @@ class PatrolController(Node):
 
 
 def main(args=None):
-    """Main entry point"""
+    """Run the patrol controller node."""
     rclpy.init(args=args)
 
     patrol_controller = PatrolController()
